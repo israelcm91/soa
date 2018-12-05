@@ -14,7 +14,7 @@ if(isset($_SESSION['usuario'])){
 		if(isset($_POST['password']) && ($_POST['password']!= "")){
 
 
-				//si viene email y contraseña, lo comprobamos contra la BD
+			//si viene email y contraseña, lo comprobamos contra la BD
 			$email = $_POST['email'];
 			$password = md5($_POST['password']);
 			$conn = new mysqli($sn,$usr,$pw,$db);
@@ -24,7 +24,7 @@ if(isset($_SESSION['usuario'])){
 			$row = $r->fetch_array(MYSQLI_ASSOC);
 			mysqli_close($conn);
 
-			if($r->num_rows == 1){
+			if($row->num_rows == 1){
 
 				//registrar al usuario en sesion.
 				$_SESSION["usuario"]["id"] = $r["id"];
@@ -45,13 +45,13 @@ if(isset($_SESSION['usuario'])){
 
 		}else{
 
-			$error="Email vacio";
+			$error="Password vacio";
 			header('Location:../login.php?error='.$error);
 		}
 
 	}else{
 
-		$error="Password vacio";
+		$error="Email vacio";
 		header('Location:../login.php?error='.$error);
 	}
 
