@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-11-2018 a las 03:42:45
+-- Tiempo de generación: 05-12-2018 a las 20:01:11
 -- Versión del servidor: 10.1.36-MariaDB
 -- Versión de PHP: 7.2.11
 
@@ -74,15 +74,15 @@ CREATE TABLE `respuestas` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuario`
+-- Estructura de tabla para la tabla `usuarios`
 --
 
-CREATE TABLE `usuario` (
+CREATE TABLE `usuarios` (
   `id` int(11) NOT NULL,
-  `nombre` int(11) NOT NULL,
-  `apellidos` int(11) NOT NULL,
-  `email` int(11) NOT NULL,
-  `password` int(11) NOT NULL,
+  `nombre` varchar(150) NOT NULL,
+  `apellidos` varchar(150) NOT NULL,
+  `email` varchar(512) NOT NULL,
+  `password` varchar(512) NOT NULL,
   `nivel` int(2) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -120,9 +120,9 @@ ALTER TABLE `respuestas`
   ADD KEY `id` (`id_preg`);
 
 --
--- Indices de la tabla `usuario`
+-- Indices de la tabla `usuarios`
 --
-ALTER TABLE `usuario`
+ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -154,9 +154,9 @@ ALTER TABLE `respuestas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `usuario`
+-- AUTO_INCREMENT de la tabla `usuarios`
 --
-ALTER TABLE `usuario`
+ALTER TABLE `usuarios`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -168,7 +168,7 @@ ALTER TABLE `usuario`
 --
 ALTER TABLE `aciertos`
   ADD CONSTRAINT `aciertos_ibfk_1` FOREIGN KEY (`id_pregunta`) REFERENCES `preguntas` (`id`),
-  ADD CONSTRAINT `aciertos_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`);
+  ADD CONSTRAINT `aciertos_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`);
 
 --
 -- Filtros para la tabla `preguntas`
@@ -180,7 +180,7 @@ ALTER TABLE `preguntas`
 -- Filtros para la tabla `puntuación`
 --
 ALTER TABLE `puntuación`
-  ADD CONSTRAINT `puntuación_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`);
+  ADD CONSTRAINT `puntuación_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`);
 
 --
 -- Filtros para la tabla `respuestas`
