@@ -5,7 +5,6 @@ $id = null;
 $nombre = null;
 $apellidos = null;
 $nivel = null;
-$rol = null;
 $logged = true;
 
 
@@ -31,16 +30,33 @@ if(isset($_SESSION['usuario'])){
 		$nombre = $row['nombre'];
 		$apellidos = $row['apellidos'];
 		$nivel = $row['nivel'];
-		$rol = $_SESSION['usuario']['rol'];
+		$rol = $row['rol'];
 		$logged = true;
 	}	
 }
+
+
+if($logged){
+
+			//si viene por get, el nivel de preguntas que hay que mostrar, lo almacenamos en una variable para su comodo uso
+			if( isset($_GET['nivel_p']) && ( ($_GET['nivel_p']!="") || ($_GET['nivel_p']!=null) )){
+
+				$nivel_p = $_GET['nivel_p'];
+				
+			//si llegamos a esta página sin el parametro de nivel, mandamos al index.
+			}else{
+				header("Location:index.php");
+			}		
+
+
+
 ?>
+
 <!DOCTYPE html>
 <html>
 
 	<head>
-		<title>Prueba</title>
+		<title>Preguntas</title>
 	</head>
 
 	<body>
@@ -68,17 +84,7 @@ if(isset($_SESSION['usuario'])){
 
 
 		<div>
-			<!-- Caja que contiene el mensaje de bienvenida, los botones de login, registro y logout !-->
-			<div><a href="preguntas.php?nivel_p=1"><h1>Nivel 1</h1></a></div>
-			<div><h1>Nivel 2</h1></div>
-			<div><h1>Nivel 3</h1></div>
-			<div><h1>Nivel 4</h1></div>
-			<div><h1>Nivel 5</h1></div>
-			<div><h1>Nivel 6</h1></div>
-			<div><h1>Nivel 7</h1></div>
-			<div><h1>Nivel 8</h1></div>
-			<div><h1>Nivel 9</h1></div>
-			<div><h1>Nivel 10</h1></div>
+		
 			
 			
 			
@@ -87,3 +93,13 @@ if(isset($_SESSION['usuario'])){
 	</body>
 
 </html>
+
+<?php
+
+
+}else{
+
+	header("Location:index.php");
+}
+
+?>

@@ -16,7 +16,7 @@ if(isset($_SESSION['usuario'])){
 
 			//si viene email y contraseña, lo comprobamos contra la BD
 			$email = $_POST['email'];
-			$password = md5($_POST['password']);
+			$password = md5($_POST['password']);			
 			$conn = new mysqli($sn,$usr,$pw,$db);
 			$sql = "SELECT * from usuarios WHERE email='".$email."' AND password ='".$password."'";
 
@@ -24,17 +24,17 @@ if(isset($_SESSION['usuario'])){
 			$row = $r->fetch_array(MYSQLI_ASSOC);
 			mysqli_close($conn);
 
-			if($row->num_rows == 1){
+			if($r->num_rows == 1){
 
 				//registrar al usuario en sesion.
-				$_SESSION["usuario"]["id"] = $r["id"];
-				$_SESSION["usuario"]["nombre"] = $r["nombre"];
-				$_SESSION["usuario"]["apellidos"] = $r["apellidos"];
+				$_SESSION["usuario"]["id"] = $row["id"];
+				$_SESSION["usuario"]["nombre"] = $row["nombre"];
+				$_SESSION["usuario"]["apellidos"] = $row["apellidos"];
 
-				if($r->id==1)	$_SESSION["usuario"]["rol"] = "admin";
+				if($row["id"] == 1)	$_SESSION["usuario"]["rol"] = "admin";
 				else $_SESSION["usuario"]["rol"] = "user";
 
-
+				header('Location:../index.php');
 
 
 			}else{
